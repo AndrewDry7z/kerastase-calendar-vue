@@ -1,0 +1,74 @@
+@import "reset";
+@import "variables";
+
+.container {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  @media screen and (max-width: 1200px) {
+    padding: 0 5vw;
+  }
+  @media screen and (max-width: 690px) {
+    padding: 0 2vw;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  background: url('/img/bg-pattern.jpg') fixed center;
+}
+
+.h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  text-align: center;
+  font-weight: 400;
+
+  @media screen and (max-width: 600px) {
+    font-size: 38px;
+    line-height: normal;
+  }
+}
+
+body {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: $main-black;
+  overflow-x: hidden;
+  background: transparent;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 14px;
+  }
+}
+
+#app {
+  background: url('/img/stars-pattern.png') top;
+  will-change: background-position;
+  overflow-x: hidden;
+}
+
+.button {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  background: #000000;
+  font-size: 16px;
+  color: #ffffff;
+  width: fit-content;
+  padding: 0 30px;
+  margin: auto;
+  text-decoration: none;
+  transition-duration: .3s;
+
+  &:hover {
+    background: #333;
+  }
+}
