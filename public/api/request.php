@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 $data = '';
 $url  = '';
 switch ( $_POST['type'] ) {

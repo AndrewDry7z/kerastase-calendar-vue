@@ -1,7 +1,7 @@
 <template>
   <div class="calendar-item"
-       :class="`color--${item.textColor} ${checkDay()}`"
-       @click="(checkDay() === 'upcoming' ? false : $emit('open-popup', item))"
+       :class="`color--${item.textColor} ${item.dayType}`"
+       @click="(item.dayType === 'upcoming' ? false : $emit('open-popup', item))"
   >
     <img class="calendar-item__image"
          loading="lazy"
@@ -11,12 +11,12 @@
       {{ `${(item.day < 10 ? '0' : '') + item.day}.12` }}
     </p>
     <p class="calendar-item__description">
-      {{ (checkDay() === 'upcoming') ? 'Скоро можно будет узнать, что внутри' : item.preview }}
+      {{ (item.dayType === 'upcoming') ? 'Скоро можно будет узнать, что внутри' : item.preview }}
     </p>
-    <button class="button" v-if="checkDay() === 'current'">
+    <button class="button" v-if="item.dayType === 'current'">
       Открыть
     </button>
-    <button class="icon" v-else-if="checkDay() === 'past'">
+    <button class="icon" v-else-if="item.dayType === 'past'">
       <img src="@/assets/images/icons/checkmark-black.svg" alt="Открыто">
     </button>
     <span class="icon" v-else>
@@ -32,24 +32,14 @@ export default {
   name: "CalendarItem",
   data() {
     return {
-      currentDay: new Date().getDate() + 20
+
     }
   },
   props: {
     item: Object
   },
   methods: {
-    checkDay() {
-      let dayType
-      if (this.$props.item.day > this.currentDay) {
-        dayType = 'upcoming'
-      } else if (this.$props.item.day < this.currentDay) {
-        dayType = 'past'
-      } else {
-        dayType = 'current'
-      }
-      return dayType
-    },
+
   }
 }
 </script>
@@ -72,6 +62,10 @@ export default {
 
     &:hover {
       transform: scale(1.03);
+
+      .button {
+        background: #333333;
+      }
     }
 
     &__image {
@@ -96,6 +90,7 @@ export default {
     .button, .icon {
       z-index: 1;
       margin: 30px auto 0;
+      transition-duration: .4s;
     }
 
     &__description {
@@ -122,7 +117,7 @@ export default {
 
       &--gold {
         .calendar-item__day {
-          background: url("/img/gold-shine.jpg") center;
+          background: url("/advent-calendar/img/gold-shine.jpg") center;
           background-size: 80%;
           background-clip: text;
           color: transparent;
@@ -132,7 +127,7 @@ export default {
     }
 
     &.current {
-      background: url("/img/pattern-active.jpg") center;
+      background: url("/advent-calendar/img/pattern-active.jpg") center;
       background-size: cover;
 
       .calendar-item__image {
@@ -143,6 +138,10 @@ export default {
         width: 69%;
       }
 
+    }
+
+    &.upcoming {
+      cursor: progress;
     }
   }
 }

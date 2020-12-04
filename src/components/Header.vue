@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="container">
-      <a href="//kerastase.ru" target="_blank" rel="noreferrer noopener">
+      <a href="//kerastase.ru" target="_blank">
         <img src="@/assets/images/logo-kerastase.svg" class="header__logo" alt="">
       </a>
     </div>

@@ -1,21 +1,23 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 const imageminMozjpeg = require('imagemin-mozjpeg')
+const imageminOptipng = require('imagemin-optipng');
 
 module.exports = {
-  configureWebpack: {
-    devtool: 'source-map',
-    plugins: [
-      new ImageminPlugin({
-        pngquant: {
-          quality: '85'
-        }
-      }),
-      imageminMozjpeg({
-        quality: 85
-      })
-    ]
-  },
+  publicPath: '/advent-calendar/',
+
   devServer: {
     disableHostCheck: true
+  },
+  configureWebpack: {
+    plugins: [
+      new ImageminPlugin({
+        plugins: [
+          imageminMozjpeg({
+            quality: 90
+          }),
+          imageminOptipng()
+        ]
+      })
+    ]
   }
 }

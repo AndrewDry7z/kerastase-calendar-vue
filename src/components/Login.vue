@@ -4,9 +4,7 @@
       <div class="login-wrap">
         <h1 class="h1 login-heading">
           {{
-            (mode === 'welcome') ? 'Магия начинается' :
-              (mode === 'login') ? 'Авторизуйтесь' :
-                'Регистрация'
+            (mode === 'welcome') ? 'Магия начинается' : 'Добро пожаловать'
           }}
         </h1>
 
@@ -15,14 +13,14 @@
                  type="email"
                  name="email"
                  v-model="email"
-                 placeholder="Введите e-mail"
+                 placeholder="Введите e-mail, чтобы увидеть подарки"
                  required>
-          <button type="submit" class="button login-form__button">Войти</button>
+          <button type="submit" class="button login-form__button">Открыть</button>
         </form>
 
         <p class="login-text" v-if="mode === 'welcome'">
           Успейте открыть все даты с 7 по 20 декабря в нашем адвент-календаре! Возвращайтесь каждый день, чтобы получать
-          бонусы и подарки. Новый день и его подарки становятся доступны для использования до 12:00 по Москве.
+          бонусы и подарки. Новый день и его подарки становятся доступны для использования до 12:00 по московскому времени.
         </p>
         <p class="login-text" v-else-if="mode === 'login'">
           Нажимая кнопку «Войти» вы принимаете политику обработки персональных данных и даете согласие на получение
@@ -57,7 +55,9 @@ export default {
         redirect: 'follow'
       };
 
-      fetch("https://kerastase.creativesoldiers.ru/api/request.php", requestOptions)
+      const URL = "https://kerastase.creativesoldiers.ru/advent-calendar/api/request.php"
+
+      fetch(URL, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.status === 'Success') {
@@ -68,7 +68,7 @@ export default {
             } else {
               // else add e-mail to segment and login
               formData.append("type", 'register');
-              fetch("https://kerastase.creativesoldiers.ru/api/request.php", requestOptions)
+              fetch(URL, requestOptions)
                 .then(response => response.json())
                 .then(result => {
                   if (result.status === 'Success') {
@@ -94,7 +94,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('/img/title-pattern.jpg') center repeat-x;
+  background: url('/advent-calendar/img/title-pattern.jpg') center repeat-x;
 
   &-heading {
     margin-bottom: 45px;
@@ -110,7 +110,7 @@ export default {
     height: 100%;
     background: #ffffff;
     border: 10px solid goldenrod;
-    border-image-source: url('/img/gold-shine.jpg');
+    border-image-source: url('/advent-calendar/img/gold-shine.jpg');
     border-image-slice: 10;
     padding: 49px;
 
@@ -125,7 +125,7 @@ export default {
     box-sizing: border-box;
     padding: 30px;
     max-width: 750px;
-    background: url(/img/p.jpg) top left;
+    background: url(/advent-calendar/img/p.jpg) top left;
     background-size: 60px;
 
     @media screen and (max-width: 600px) {
@@ -135,8 +135,8 @@ export default {
   }
 
   &-text {
-    margin: 60px auto;
-    color: #868686;
+    margin: 40px auto 60px;
+    color: #000;
 
     @media screen and (max-width: 600px) {
       margin: 30px auto;
@@ -148,16 +148,17 @@ export default {
     grid-template-columns: 2fr 1fr;
     gap: 12px;
 
-    @media screen and (max-width: 350px) {
+    @media screen and (max-width: 600px) {
       display: block;
     }
 
     &__input {
       border-bottom: 1px solid #000000;
 
-      @media screen and (max-width: 350px) {
+      @media screen and (max-width: 600px) {
         width: 100%;
         margin-bottom: 20px;
+        height: 50px;
       }
     }
 

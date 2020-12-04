@@ -33,6 +33,7 @@ export default {
       calendar: [
         {
           day: 7,
+          dayType: 'upcoming',
           description: 'Тревел-формат Reflection Bain Chroma Riche в подарок при покупке от 3 000 рублей',
           preview: 'Тревел-формат Reflection Bain Chroma Riche',
           textColor: 'gold',
@@ -41,6 +42,7 @@ export default {
         },
         {
           day: 8,
+          dayType: 'upcoming',
           description: 'Гребень в подарок к каждому заказу',
           preview: 'Гребень в подарок',
           textColor: 'white',
@@ -50,14 +52,16 @@ export default {
         },
         {
           day: 9,
+          dayType: 'upcoming',
           description: '5 дополнительных саше к заказу и бесплатная доставка',
           preview: '5 дополнительных саше к заказу и бесплатная доставка',
           textColor: 'black',
-          code: 'NY6TEST',
+          code: 'NY5TEST',
           link: '//kerastase.ru/'
         },
         {
           day: 10,
+          dayType: 'upcoming',
           description: 'Косметичка в подарок при заказе от 3 000 рублей',
           preview: 'Косметичка в подарок',
           textColor: 'white',
@@ -66,6 +70,7 @@ export default {
         },
         {
           day: 11,
+          dayType: 'upcoming',
           description: 'Тревел-формат Elixir Ultimw L’Huile Rose в подарок при заказе от 3 000 рублей',
           preview: 'Тревел-формат Elixir Ultimw L’Huile Rose',
           textColor: 'black',
@@ -74,6 +79,7 @@ export default {
         },
         {
           day: 12,
+          dayType: 'upcoming',
           description: 'Скидка 15% на товары в корзине при заказе от 4 000 рублей',
           preview: 'Скидка 15% на товары в корзине',
           textColor: 'gold',
@@ -82,6 +88,7 @@ export default {
         },
         {
           day: 13,
+          dayType: 'upcoming',
           description: '200 баллов в подарок',
           preview: '200 баллов в подарок',
           textColor: 'black',
@@ -90,6 +97,7 @@ export default {
         },
         {
           day: 14,
+          dayType: 'upcoming',
           description: 'Тревел-формат Resistance Masque в подарок при заказе от 3 000 рублей',
           preview: 'Тревел-формат Resistance Masque',
           textColor: 'gold',
@@ -98,6 +106,7 @@ export default {
         },
         {
           day: 15,
+          dayType: 'upcoming',
           description: 'Продукт для укладки L’Incroyable Blowdry в подарок при заказе от 7 000 рублей',
           preview: 'Продукт для укладки L’Incroyable Blowdry',
           textColor: 'white',
@@ -106,7 +115,8 @@ export default {
         },
         {
           day: 16,
-          description: 'Сумка в подарок к заказу от 4 000',
+          dayType: 'upcoming',
+          description: 'Сумка в подарок к заказу от 4 000 рублей',
           preview: 'Сумка в подарок',
           textColor: 'gold',
           code: 'NYBAG',
@@ -114,6 +124,7 @@ export default {
         },
         {
           day: 17,
+          dayType: 'upcoming',
           description: 'Тревел-формат Fondant Extention в подарок к заказу от 3 000 рублей',
           preview: 'Тревел-формат Fondant Extention',
           textColor: 'white',
@@ -122,6 +133,7 @@ export default {
         },
         {
           day: 18,
+          dayType: 'upcoming',
           description: 'Бесплатная доставка и скидка 10% на все',
           preview: 'Бесплатная доставка и скидка 10% на все',
           textColor: 'black',
@@ -130,7 +142,8 @@ export default {
         },
         {
           day: 19,
-          description: 'Скраб Apaisant года в подарок при покупке 3х продуктов',
+          dayType: 'upcoming',
+          description: 'Скраб Apaisant в подарок при покупке 3х полноразмерных продуктов',
           preview: 'Скраб Apaisant',
           textColor: 'white',
           code: 'NYBEST',
@@ -138,7 +151,8 @@ export default {
         },
         {
           day: 20,
-          description: 'Тревел-формат Blond Absolu в подарок к заказу от 3 000',
+          dayType: 'upcoming',
+          description: 'Тревел-формат Blond Absolu в подарок к заказу от 3 000 рублей',
           preview: 'Тревел-формат Blond Absolu',
           textColor: 'black',
           code: 'NYTRAVEL5',
@@ -147,10 +161,24 @@ export default {
       ]
     }
   },
+  methods: {
+    checkDays() {
+      const CURRENT_DAY = new Date().getDate()
+      for (let day of this.calendar) {
+        if (day.day < CURRENT_DAY) {
+          day.dayType = 'past'
+        } else if (day.day === CURRENT_DAY) {
+          day.dayType = 'current'
+        }
+      }
+    },
+  },
+
   mounted() {
-    if (sessionStorage.status !== 'logon') {
-      //this.$router.push('/')
+    if (sessionStorage.status !== 'logon' && process.env.NODE_ENV === 'production') {
+      this.$router.push('/')
     }
+    this.checkDays()
   }
 }
 </script>
@@ -172,7 +200,7 @@ export default {
         height: 25px;
         width: 1000%;
         position: absolute;
-        background: url('/img/title-pattern.jpg');
+        background: url('/advent-calendar/img/title-pattern.jpg');
         background-size: contain;
         top: calc(50% - 5px);
         left: calc(-1000% - 50px)
@@ -183,7 +211,7 @@ export default {
         height: 25px;
         width: 1000%;
         position: absolute;
-        background: url('/img/title-pattern.jpg');
+        background: url('/advent-calendar/img/title-pattern.jpg');
         background-size: contain;
         top: calc(50% - 5px);
         right: calc(-1000% - 50px)

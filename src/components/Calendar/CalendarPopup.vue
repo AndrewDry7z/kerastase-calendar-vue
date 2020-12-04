@@ -22,14 +22,21 @@
         </div>
         <a class="button calendar-popup__button"
            role="button"
+           v-if="item.dayType === 'current'"
            :href="item.link"
            target="_blank"
            rel="noreferrer noopener">
           Воспользоваться
         </a>
+        <button class="button"
+                v-else
+                disabled>
+          Завершено
+        </button>
         <p class="calendar-popup__terms">
-          Введите промокод к товарам в корзине при оформлении заказа и получите подарок. <br>
-          Не суммируется с другими промокодами.
+          Введите промокод в корзине при оформлении заказа и получите подарок.<br>
+          Промокод на скидку не суммируется со скидочными товарами и не действует в периоды распродаж.<br>
+          {{ item.day === 13 ? "Участники уровней Gold и Diamond могут потратить их уже сейчас!" : '' }}
         </p>
       </div>
     </div>
@@ -70,7 +77,7 @@ export default {
   justify-content: center;
   animation: popupFadeIn .4s ease-in;
 
-  @media screen and (max-width: 350px) {
+  @media screen and (max-width: 1400px) {
     overflow-y: auto;
     align-items: flex-start;
   }
@@ -81,7 +88,7 @@ export default {
     width: 100%;
     max-width: 510px;
     text-align: center;
-    background: url('/img/p.jpg') top right;
+    background: url('/advent-calendar/img/p.jpg') top right;
     background-size: 60px;
     box-shadow: 0 0 155px rgba(0, 0, 0, 0.06), 0 0 34px rgba(0, 0, 0, 0.035), 0 0 19px rgba(0, 0, 0, 0.03), 0 14px 10px rgba(0, 0, 0, 0.025), 0 6px 4px rgba(0, 0, 0, 0.01);
     border: 30px solid transparent;
@@ -109,7 +116,7 @@ export default {
   &-wrap {
     position: relative;
     border: 10px solid goldenrod;
-    border-image-source: url('/img/gold-shine.jpg');
+    border-image-source: url('/advent-calendar/img/gold-shine.jpg');
     border-image-slice: 8;
     background: #ffffff;
   }
@@ -160,8 +167,9 @@ export default {
 
   &__terms {
     margin: 30px auto 40px;
-    max-width: 300px;
-    font-size: 14px;
+    max-width: 330px;
+    font-size: 12px;
+    line-height: 18px;
     color: $main-grey;
   }
 }

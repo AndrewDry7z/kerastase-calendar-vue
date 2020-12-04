@@ -17,7 +17,7 @@
 
 html {
   scroll-behavior: smooth;
-  background: url('/img/bg-pattern.jpg') fixed center;
+  background: url('/advent-calendar/img/bg-pattern.jpg') fixed center;
 }
 
 .h1 {
@@ -46,7 +46,7 @@ body {
 }
 
 #app {
-  background: url('/img/stars-pattern.png') top;
+  background: url('/advent-calendar/img/stars-pattern.png') top;
   will-change: background-position;
   overflow-x: hidden;
 }
@@ -70,5 +70,10 @@ body {
 
   &:hover {
     background: #333;
+  }
+
+  &[disabled] {
+    cursor: default;
+    background: #525252;
   }
 }
