@@ -55,7 +55,7 @@ export default {
         redirect: 'follow'
       };
 
-      const URL = "https://kerastase.creativesoldiers.ru/advent-calendar/api/request.php"
+      const URL = "/advent-calendar/api/request.php"
 
       fetch(URL, requestOptions)
         .then(response => response.json())

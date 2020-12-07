@@ -43,7 +43,7 @@ $curl = curl_init( $url );
 curl_setopt( $curl, CURLOPT_HTTPHEADER, array(
 		"Content-Type: application/xml",
 		"Accept: text/xml",
-		'Authorization: Mindbox secretKey="i1BdiJ11koSGnPxw8zYN"'
+		'Authorization: Mindbox secretKey="' . $_ENV['KEY'] . '"'
 ) );
 curl_setopt( $curl, CURLOPT_POST, true );
 curl_setopt( $curl, CURLOPT_POSTFIELDS, $data );
